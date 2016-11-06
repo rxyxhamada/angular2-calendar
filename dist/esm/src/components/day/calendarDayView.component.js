@@ -33,6 +33,14 @@ export var CalendarDayViewComponent = (function () {
          */
         this.eventWidth = 150;
         /**
+         * The grid size to snap resizing and dragging of events to
+         */
+        this.eventSnapSize = 30;
+        /**
+         * The placement of the event tooltip
+         */
+        this.tooltipPlacement = 'top';
+        /**
          * Called when an event title is clicked
          */
         this.eventClicked = new EventEmitter();
@@ -40,6 +48,10 @@ export var CalendarDayViewComponent = (function () {
          * Called when an hour segment is clicked
          */
         this.hourSegmentClicked = new EventEmitter();
+        /**
+         * Called when an event is resized or dragged and dropped
+         */
+        this.eventTimesChanged = new EventEmitter();
         this.hours = [];
         this.width = 0;
         this.locale = locale;
@@ -121,7 +133,7 @@ export var CalendarDayViewComponent = (function () {
         { type: Component, args: [{
                     selector: 'mwl-calendar-day-view',
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    template: "\n    <div class=\"cal-day-view\">\n      <mwl-calendar-all-day-event\n        *ngFor=\"let event of view.allDayEvents\"\n        [event]=\"event\"\n        (eventClicked)=\"eventClicked.emit({event: event})\">\n      </mwl-calendar-all-day-event>\n      <div class=\"cal-hour-rows\">\n        <div class=\"cal-events\">\n          <mwl-calendar-day-view-event\n            *ngFor=\"let dayEvent of view?.events\"\n            [dayEvent]=\"dayEvent\"\n            (eventClicked)=\"eventClicked.emit({event: dayEvent.event})\">\n          </mwl-calendar-day-view-event>\n        </div>\n        <div class=\"cal-hour\" *ngFor=\"let hour of hours\" [style.minWidth.px]=\"view?.width + 70\">\n          <mwl-calendar-day-view-hour-segment\n            *ngFor=\"let segment of hour.segments\"\n            [segment]=\"segment\"\n            [locale]=\"locale\"\n            (click)=\"hourSegmentClicked.emit({date: segment.date})\">\n          </mwl-calendar-day-view-hour-segment>\n        </div>\n      </div>\n    </div>\n  "
+                    template: "\n    <div class=\"cal-day-view\">\n      <mwl-calendar-all-day-event\n        *ngFor=\"let event of view.allDayEvents\"\n        [event]=\"event\"\n        (eventClicked)=\"eventClicked.emit({event: event})\">\n      </mwl-calendar-all-day-event>\n      <div class=\"cal-hour-rows\">\n        <div class=\"cal-events\">\n          <mwl-calendar-day-view-event\n            *ngFor=\"let dayEvent of view?.events\"\n            [dayEvent]=\"dayEvent\"\n            [hourSegments]=\"hourSegments\"\n            [tooltipPlacement]=\"tooltipPlacement\"\n            [eventSnapSize]=\"eventSnapSize\"\n            (eventClicked)=\"eventClicked.emit({event: dayEvent.event})\"\n            (eventResized)=\"eventTimesChanged.emit($event)\">\n          </mwl-calendar-day-view-event>\n        </div>\n        <div class=\"cal-hour\" *ngFor=\"let hour of hours\" [style.minWidth.px]=\"view?.width + 70\">\n          <mwl-calendar-day-view-hour-segment\n            *ngFor=\"let segment of hour.segments\"\n            [segment]=\"segment\"\n            [locale]=\"locale\"\n            (click)=\"hourSegmentClicked.emit({date: segment.date})\">\n          </mwl-calendar-day-view-hour-segment>\n        </div>\n      </div>\n    </div>\n  "
                 },] },
     ];
     /** @nocollapse */
@@ -141,8 +153,11 @@ export var CalendarDayViewComponent = (function () {
         'refresh': [{ type: Input },],
         'locale': [{ type: Input },],
         'hourSegmentModifier': [{ type: Input },],
+        'eventSnapSize': [{ type: Input },],
+        'tooltipPlacement': [{ type: Input },],
         'eventClicked': [{ type: Output },],
         'hourSegmentClicked': [{ type: Output },],
+        'eventTimesChanged': [{ type: Output },],
     };
     return CalendarDayViewComponent;
 }());

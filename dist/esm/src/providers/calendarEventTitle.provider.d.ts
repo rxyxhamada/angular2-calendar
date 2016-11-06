@@ -5,4 +5,5 @@ export declare class CalendarEventTitle {
     week(event: CalendarEvent): string;
     weekTooltip(event: CalendarEvent): string;
     day(event: CalendarEvent): string;
+    dayTooltip(event: CalendarEvent): string;
 }

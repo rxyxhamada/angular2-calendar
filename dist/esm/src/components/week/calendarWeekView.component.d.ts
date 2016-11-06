@@ -1,7 +1,9 @@
 import { EventEmitter, ChangeDetectorRef, OnChanges, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { WeekDay, CalendarEvent, WeekViewEventRow } from 'calendar-utils';
+import { WeekDay, CalendarEvent, WeekViewEvent, WeekViewEventRow } from 'calendar-utils';
+import { ResizeEvent } from 'angular-resizable-element';
+import { CalendarEventTimesChangedEvent } from './../../interfaces/calendarEventTimesChangedEvent.interface';
 export declare class CalendarWeekViewComponent implements OnChanges, OnInit, OnDestroy {
     private cdr;
     /**
@@ -40,13 +42,25 @@ export declare class CalendarWeekViewComponent implements OnChanges, OnInit, OnD
     eventClicked: EventEmitter<{
         event: CalendarEvent;
     }>;
+    /**
+     * Called when an event is resized or dragged and dropped
+     */
+    eventTimesChanged: EventEmitter<CalendarEventTimesChangedEvent>;
     days: WeekDay[];
     eventRows: WeekViewEventRow[];
     refreshSubscription: Subscription;
+    currentResize: {
+        originalOffset: number;
+        originalSpan: number;
+        edge: string;
+    };
     constructor(cdr: ChangeDetectorRef, locale: string);
     ngOnInit(): void;
     ngOnChanges(changes: any): void;
     ngOnDestroy(): void;
+    resizeStarted(weekEvent: WeekViewEvent, resizeEvent: ResizeEvent): void;
+    resizing(weekEvent: WeekViewEvent, resizeEvent: ResizeEvent, dayWidth: number): void;
+    resizeEnded(weekEvent: WeekViewEvent): void;
     private refreshHeader();
     private refreshBody();
     private refreshAll();

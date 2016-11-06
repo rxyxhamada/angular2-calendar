@@ -16,6 +16,9 @@ export var CalendarEventTitle = (function () {
     CalendarEventTitle.prototype.day = function (event) {
         return event.title;
     };
+    CalendarEventTitle.prototype.dayTooltip = function (event) {
+        return event.title;
+    };
     return CalendarEventTitle;
 }());
 //# sourceMappingURL=calendarEventTitle.provider.js.map

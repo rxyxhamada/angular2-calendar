@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ResizableModule } from 'angular-resizable-element';
 import { CalendarDayViewComponent } from './components/day/calendarDayView.component';
 import { CalendarWeekViewComponent } from './components/week/calendarWeekView.component';
 import { CalendarMonthViewComponent } from './components/month/calendarMonthView.component';
@@ -49,7 +50,7 @@ export var CalendarModule = (function () {
                         CalendarDate,
                         CalendarEventTitlePipe,
                     ],
-                    imports: [CommonModule],
+                    imports: [CommonModule, ResizableModule],
                     exports: [CalendarDayViewComponent, CalendarWeekViewComponent, CalendarMonthViewComponent, CalendarDate],
                     entryComponents: [CalendarTooltipWindowComponent]
                 },] },

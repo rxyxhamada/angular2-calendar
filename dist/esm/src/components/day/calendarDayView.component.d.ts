@@ -2,6 +2,7 @@ import { OnChanges, EventEmitter, ChangeDetectorRef, OnInit, OnDestroy } from '@
 import { CalendarEvent, DayView, DayViewHour } from 'calendar-utils';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { CalendarEventTimesChangedEvent } from './../../interfaces/calendarEventTimesChangedEvent.interface';
 export declare class CalendarDayViewComponent implements OnChanges, OnInit, OnDestroy {
     private cdr;
     /**
@@ -50,6 +51,14 @@ export declare class CalendarDayViewComponent implements OnChanges, OnInit, OnDe
      */
     hourSegmentModifier: Function;
     /**
+     * The grid size to snap resizing and dragging of events to
+     */
+    eventSnapSize: number;
+    /**
+     * The placement of the event tooltip
+     */
+    tooltipPlacement: string;
+    /**
      * Called when an event title is clicked
      */
     eventClicked: EventEmitter<{
@@ -61,6 +70,10 @@ export declare class CalendarDayViewComponent implements OnChanges, OnInit, OnDe
     hourSegmentClicked: EventEmitter<{
         date: Date;
     }>;
+    /**
+     * Called when an event is resized or dragged and dropped
+     */
+    eventTimesChanged: EventEmitter<CalendarEventTimesChangedEvent>;
     hours: DayViewHour[];
     view: DayView;
     width: number;
