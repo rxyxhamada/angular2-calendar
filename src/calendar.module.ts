@@ -35,7 +35,7 @@ import { CalendarDateFormatter } from './providers/calendarDateFormatter.provide
     CalendarTooltipWindowComponent,
     CalendarTooltipDirective,
     CalendarDate,
-    CalendarEventTitlePipe
+    CalendarEventTitlePipe,
   ],
   imports: [CommonModule],
   exports: [CalendarDayViewComponent, CalendarWeekViewComponent, CalendarMonthViewComponent, CalendarDate],

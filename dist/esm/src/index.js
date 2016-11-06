@@ -4,9 +4,6 @@ export * from './providers/calendarNativeDateFormatter.provider';
 export * from './providers/calendarDateFormatter.provider';
 export * from './interfaces/calendarDateFormatter.interface';
 export * from './calendar.module';
-export {EventAction as CalendarEventAction} from 'calendar-utils';
-export {CalendarEvent} from './components/common/calendar-event';
-
 // Private components, don't import or use these within your app, they are only exported so that AOT can work
 export { CalendarDayViewComponent as PrivateComponent1 } from './components/day/calendarDayView.component';
 export { CalendarWeekViewComponent as PrivateComponent2 } from './components/week/calendarWeekView.component';
@@ -21,3 +18,4 @@ export { CalendarAllDayEventComponent as PrivateComponent10 } from './components
 export { CalendarDayViewHourSegmentComponent as PrivateComponent11 } from './components/day/calendarDayViewHourSegment.component';
 export { CalendarDayViewEventComponent as PrivateComponent12 } from './components/day/calendarDayViewEvent.component';
 export { CalendarTooltipWindowComponent as PrivateComponent13 } from './directives/calendarTooltip.directive';
+//# sourceMappingURL=index.js.map

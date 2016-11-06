@@ -12,13 +12,14 @@ import {
   Inject
 } from '@angular/core';
 import {
-  CalendarEvent,
   WeekDay,
   MonthView,
   getWeekViewHeader,
   getMonthView,
-  MonthViewDay
+  MonthViewDay,
+  CalendarEvent
 } from 'calendar-utils';
+
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import isSameDay from 'date-fns/is_same_day';
@@ -44,14 +45,18 @@ import isSameDay from 'date-fns/is_same_day';
               [tooltipPlacement]="tooltipPlacement"
               (click)="dayClicked.emit({day: day})"
               (highlightDay)="toggleDayHighlight($event.event, true)"
-              (unhighlightDay)="toggleDayHighlight($event.event, false)">
+              (unhighlightDay)="toggleDayHighlight($event.event, false)"
+              (selectEvent)="eventClicked.emit($event)"
+              (toggleTimeSlot)="toggleTimeSlotClicked.emit($event)"
+              (removeEvent)="removeEventClicked.emit($event)"
+              (toggleAllTimeSlots)="toggleAllTimeSlotsClicked.emit($event)">
             </mwl-calendar-month-cell>
           </div>
-          <mwl-calendar-open-day-events
-            [isOpen]="openRowIndex === rowIndex"
-            [events]="openDay?.events"
-            (eventClicked)="eventClicked.emit({event: $event.event})">
-          </mwl-calendar-open-day-events>
+          <!--<mwl-calendar-open-day-events-->
+            <!--[isOpen]="openRowIndex === rowIndex"-->
+            <!--[events]="openDay?.events"-->
+            <!--(eventClicked)="eventClicked.emit({event: $event.event})">-->
+          <!--</mwl-calendar-open-day-events>-->
         </div>
       </div>
     </div>
@@ -109,6 +114,21 @@ export class CalendarMonthViewComponent implements OnChanges, OnInit, OnDestroy 
    * Called when the event title is clicked
    */
   @Output() eventClicked: EventEmitter<{event: CalendarEvent}> = new EventEmitter<{event: CalendarEvent}>();
+
+  /**
+   * Called when the event remove button is clicked
+   */
+  @Output() removeEventClicked: EventEmitter<{event: CalendarEvent}> = new EventEmitter<{event: CalendarEvent}>();
+
+  /**
+   * Called when the toggle time slot button is clicked
+   */
+  @Output() toggleTimeSlotClicked: EventEmitter<{event: CalendarEvent}> = new EventEmitter<{event: CalendarEvent}>();
+
+  /**
+   * Called when the toggle all time slots in a day button is clicked
+   */
+  @Output() toggleAllTimeSlotsClicked: EventEmitter<{day: any}> = new EventEmitter<{day: any}>();
 
   columnHeaders: WeekDay[];
   view: MonthView;

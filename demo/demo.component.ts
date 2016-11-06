@@ -15,21 +15,100 @@ import {
   CalendarEvent,
   CalendarEventAction
 } from './../src'; // import should be from `angular2-calendar` in your app
+// import {CalendarEvent} from "../src/components/common/calendar-event";
 
 const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
+    red: {
+        primary: '#ccc',
+        secondary: '#eee'
+    },
+    blue: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF'
+    },
+    yellow: {
+        primary: '#e3bc08',
+        secondary: '#FDF1BA'
+    }
 };
+
+export const MOCK: CalendarEvent[] = [
+    {
+        start: new Date('2016-11-16T12:00:00+0900'),
+        end:   new Date('2016-11-16T14:00:00+0900'),
+        title: 'A1',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+    },
+    {
+        start: new Date('2016-11-16T14:00:00+0900'),
+        end:   new Date('2016-11-16T16:00:00+0900'),
+        title: 'A2',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+    },
+    {
+        start: new Date('2016-11-17T14:00:00+0900'),
+        end:   new Date('2016-11-17T16:00:00+0900'),
+        title: 'B',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+        reserve: {
+            name: '古坂 和仁'
+        }
+    },
+    {
+        start: new Date('2016-11-17T16:00:00+0900'),
+        end:   new Date('2016-11-17T18:00:00+0900'),
+        title: 'B',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+        confirmed: false,
+        reserve: {
+            name: '斎藤 司'
+        }
+    },
+    {
+        start: new Date('2016-11-18T10:00:00+0900'),
+        end:   new Date('2016-11-18T12:00:00+0900'),
+        title: 'B',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+        confirmed: false,
+        reserve: {
+            name: '斎藤 司'
+        }
+    },
+    {
+        start: new Date('2016-11-22T14:00:00+0900'),
+        end:   new Date('2016-11-22T16:00:00+0900'),
+        title: 'B',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+        confirmed: false,
+        reserve: {
+            name: '斎藤 司'
+        }
+    },
+    {
+        start: new Date('2016-11-18T14:00:00+0900'),
+        end:   new Date('2016-11-18T16:00:00+0900'),
+        title: 'B',
+        color: colors.red,
+        actions: this.actions,
+        activated: true,
+        reserve: {
+            name: '石田 明'
+        }
+    },
+];
+
 
 @Component({
   selector: 'mwl-demo-app',
@@ -75,7 +154,11 @@ const colors: any = {
           [viewDate]="viewDate"
           [events]="events"
           [activeDayIsOpen]="activeDayIsOpen"
-          (dayClicked)="dayClicked($event.day)">
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="eventClicked($event.event)"
+          (removeEventClicked)="removeEventClicked($event.event)"
+          (toggleTimeSlotClicked)="toggleTimeSlotClicked($event.event)"
+          (toggleAllTimeSlotsClicked)="toggleAllTimeSlotsClicked($event.day)">
         </mwl-calendar-month-view>
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
@@ -109,23 +192,7 @@ export class DemoComponent {
     }
   }];
 
-  events: CalendarEvent[] = [{
-    start: subDays(startOfDay(new Date()), 1),
-    end: addDays(new Date(), 1),
-    title: 'A 3 day event',
-    color: colors.red,
-    actions: this.actions
-  }, {
-    start: startOfDay(new Date()),
-    title: 'An event with no end date',
-    color: colors.yellow,
-    actions: this.actions
-  }, {
-    start: subDays(endOfMonth(new Date()), 3),
-    end: addDays(endOfMonth(new Date()), 3),
-    title: 'A long event that spans 2 months',
-    color: colors.blue
-  }];
+  events: CalendarEvent[] = MOCK;
 
   activeDayIsOpen: boolean = true;
 
@@ -170,6 +237,22 @@ export class DemoComponent {
         this.viewDate = date;
       }
     }
+  }
+
+  eventClicked(event: CalendarEvent): void {
+    console.log('eventClicked', event);
+  }
+
+  removeEventClicked(event: CalendarEvent): void {
+    console.log('removeEventClicked', event);
+  }
+
+  toggleTimeSlotClicked(event: CalendarEvent): void {
+    event.activated = !event.activated;
+  }
+
+  toggleAllTimeSlotsClicked(day: any): void {
+      console.log('toggleAllTimeSlotsClicked', day);
   }
 
 }

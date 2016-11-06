@@ -6,20 +6,36 @@ import { MonthViewDay } from 'calendar-utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="cal-cell-top">
-      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <!--<span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>-->
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+      <span class="cal-day-toggle-slot fa fa-ban" (click)="toggleAllTimeSlots.emit({day: day})"></span>
     </div>
     <div class="cal-events">
-      <span
+      <div
         class="cal-event"
         *ngFor="let event of day.events"
-        [style.backgroundColor]="event.color.primary"
         [ngClass]="event?.cssClass"
         (mouseenter)="highlightDay.emit({event: event})"
         (mouseleave)="unhighlightDay.emit({event: event})"
         [mwlCalendarTooltip]="event | calendarEventTitle:'monthTooltip'"
-        [tooltipPlacement]="tooltipPlacement">
-      </span>
+        [tooltipPlacement]="tooltipPlacement"
+        (click)="selectEvent.emit({event: event}); $event.stopPropagation()"
+        [class.activated]="event.activated"
+        [class.reserved]="event.reserve != null"
+        [class.not-confirmed]="event.confirmed==false">
+        <span>{{event.start | calendarDate:'dayViewHour':'ja'}}-{{event.end | calendarDate:'dayViewHour':'ja'}}</span>
+        <span *ngIf="event.reserve != null">{{event.reserve.name}}</span>
+        <i class="fa fa-check-circle-o"
+           *ngIf="event.reserve==null && !event.activated"
+           (click)="toggleTimeSlot.emit({event: event}); $event.stopPropagation()"></i>
+        <i class="fa fa-ban"
+           *ngIf="event.reserve==null && event.activated"
+           (click)="toggleTimeSlot.emit({event: event}); $event.stopPropagation()"></i>
+        <!--<i class="fa fa-close"-->
+           <!--*ngIf="event.reserve !=null"-->
+           <!--(click)="removeEvent.emit({event: event}); $event.stopPropagation()"></i>-->
+        
+      </div>
     </div>
   `,
   host: {
@@ -48,5 +64,13 @@ export class CalendarMonthCellComponent {
   @Output() highlightDay: EventEmitter<any> = new EventEmitter();
 
   @Output() unhighlightDay: EventEmitter<any> = new EventEmitter();
+
+  @Output() selectEvent: EventEmitter<any> = new EventEmitter();
+
+  @Output() removeEvent: EventEmitter<any> = new EventEmitter();
+
+  @Output() toggleTimeSlot: EventEmitter<any> = new EventEmitter();
+
+  @Output() toggleAllTimeSlots: EventEmitter<any> = new EventEmitter();
 
 }

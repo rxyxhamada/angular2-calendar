@@ -27,7 +27,7 @@
   }
 
   .cal-cell-top {
-    min-height: 62px;
+    min-height: 30px;
   }
 
   .cal-cell-row {
@@ -55,14 +55,14 @@
   }
 
   .cal-day-badge {
-    margin-top: 18px;
-    margin-left: 10px;
+    margin-top: 3px;
+    margin-left: 3px;
     background-color: #b94a48;
     display: inline-block;
     min-width: 10px;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: 700;
+    padding: 2px 6px;
+    font-size: 1em;
+    font-weight: 400;
     line-height: 1;
     color: white;
     text-align: center;
@@ -71,12 +71,22 @@
     border-radius: 10px;
   }
 
-  .cal-day-number {
-    font-size: 1.2em;
+  .cal-day-toggle-slot {
+    font-size: 1em;
     font-weight: 400;
     opacity: 0.5;
-    margin-top: 15px;
-    margin-right: 15px;
+    margin-top: 8px;
+    margin-right: 8px;
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  .cal-day-number {
+    font-size: 1em;
+    font-weight: 400;
+    opacity: 0.5;
+    margin-top: 5px;
+    margin-right: 5px;
     float: right;
     margin-bottom: 10px;
   }
@@ -84,25 +94,47 @@
   .cal-events {
     flex: 1;
     align-items: flex-end;
-    margin: 3px;
-    line-height: 10px;
+    //margin: 3px;
+    //line-height: 10px;
     display: flex;
     flex-wrap: wrap;
+    min-height: 70px;
   }
 
   .cal-event {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 2px;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 0 1px;
+    padding: 3px;
+    background-color: #e7e7e7;
+
+    i {
+      display: inline-block;
+      float: right;
+      margin: 2px 2px 0;
+      cursor: pointer;
+    }
+
+    &.activated {
+      background-color: #d7d7d7 !important;
+    }
+
+    &.reserved {
+      background-color: #f9cd0b !important;
+    }
+
+    &.not-confirmed {
+      background-color: #b1e800 !important;
+    }
   }
 
   .cal-day-cell.cal-in-month.cal-has-events {
     cursor: pointer;
   }
 
-  .cal-day-cell.cal-out-month .cal-day-number {
+  .cal-day-cell.cal-out-month .cal-day-number,
+  .cal-day-cell.cal-out-month .cal-day-toggle-slot {
     opacity: 0.1;
     cursor: default;
   }
