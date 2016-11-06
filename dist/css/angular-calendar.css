@@ -2,9 +2,6 @@
   text-align: center;
   font-weight: bolder; }
 
-.cal-month-view .cal-cell-row:hover {
-  background-color: #fafafa; }
-
 .cal-month-view .cal-header .cal-cell {
   padding: 5px 0;
   overflow: hidden;
@@ -14,7 +11,7 @@
 
 .cal-month-view .cal-cell-row .cal-cell:hover,
 .cal-month-view .cal-cell.cal-has-events.cal-open {
-  background-color: #ededed; }
+  background-color: #fafafa; }
 
 .cal-month-view .cal-days {
   border: 1px solid #e1e1e1;
@@ -103,18 +100,21 @@
   height: auto;
   margin: 0 0 1px;
   padding: 3px;
-  background-color: #e7e7e7; }
+  background-color: #f3f3f3; }
   .cal-month-view .cal-event i {
     display: inline-block;
     float: right;
     margin: 2px 2px 0;
     cursor: pointer; }
   .cal-month-view .cal-event.activated {
-    background-color: #d7d7d7 !important; }
+    background-color: #f0f0f0; }
+  .cal-month-view .cal-event.deactivated {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.2); }
   .cal-month-view .cal-event.reserved {
-    background-color: #f9cd0b !important; }
+    background-color: #f9cd0b; }
   .cal-month-view .cal-event.not-confirmed {
-    background-color: #b1e800 !important; }
+    background-color: #b0e8e2; }
 
 .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
   cursor: pointer; }
@@ -126,9 +126,6 @@
 
 .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
   color: darkred; }
-
-.cal-month-view .cal-day-cell.cal-today {
-  background-color: #e8fde7; }
 
 .cal-month-view .cal-day-cell.cal-today .cal-day-number {
   font-size: 1.9em; }

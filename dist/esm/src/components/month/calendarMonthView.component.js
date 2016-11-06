@@ -65,12 +65,11 @@ export var CalendarMonthViewComponent = (function () {
     };
     CalendarMonthViewComponent.prototype.toggleDayHighlight = function (event, isHighlighted) {
         this.view.days.forEach(function (day) {
-            if (isHighlighted && day.events.indexOf(event) > -1) {
-                day.backgroundColor = event.color.secondary;
-            }
-            else {
-                delete day.backgroundColor;
-            }
+            // if (isHighlighted && day.events.indexOf(event) > -1) {
+            //   day.backgroundColor = event.color.secondary;
+            // } else {
+            //   delete day.backgroundColor;
+            // }
         });
     };
     CalendarMonthViewComponent.prototype.refreshHeader = function () {
