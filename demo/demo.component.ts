@@ -9,13 +9,15 @@ import {
   addWeeks,
   subWeeks,
   addMonths,
-  subMonths
+  subMonths,
+  addHours
 } from 'date-fns';
+import { Subject } from 'rxjs/Subject';
 import {
   CalendarEvent,
-  CalendarEventAction
-} from './../src'; // import should be from `angular2-calendar` in your app
-// import {CalendarEvent} from "../src/components/common/calendar-event";
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent
+} from './../src'; // import should be from `angular-calendar` in your app
 
 const colors: any = {
     red: {
@@ -233,6 +235,7 @@ export const MOCK: CalendarEvent[] = [
           *ngSwitchCase="'month'"
           [viewDate]="viewDate"
           [events]="events"
+          [refresh]="refresh"
           [activeDayIsOpen]="activeDayIsOpen"
           (dayClicked)="dayClicked($event.day)"
           (eventClicked)="eventClicked($event.event)"
@@ -243,12 +246,16 @@ export const MOCK: CalendarEvent[] = [
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
           [viewDate]="viewDate"
-          [events]="events">
+          [events]="events"
+          [refresh]="refresh"
+          (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-week-view>
         <mwl-calendar-day-view
           *ngSwitchCase="'day'"
           [viewDate]="viewDate"
-          [events]="events">
+          [events]="events"
+          [refresh]="refresh"
+          (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-day-view>
       </div>
     </div>
@@ -271,6 +278,8 @@ export class DemoComponent {
       this.events = this.events.filter(iEvent => iEvent !== event);
     }
   }];
+
+  refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = MOCK;
 
@@ -333,6 +342,12 @@ export class DemoComponent {
 
   toggleAllTimeSlotsClicked(day: any): void {
       console.log('toggleAllTimeSlotsClicked', day);
+  }
+
+  eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.refresh.next();
   }
 
 }
