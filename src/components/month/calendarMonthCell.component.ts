@@ -21,14 +21,15 @@ import { MonthViewDay } from 'calendar-utils';
         [tooltipPlacement]="tooltipPlacement"
         (click)="selectEvent.emit({event: event}); $event.stopPropagation()"
         [class.activated]="event.activated"
+        [class.deactivated]="!event.activated"
         [class.reserved]="event.reserve != null"
         [class.not-confirmed]="event.confirmed==false">
         <span>{{event.start | calendarDate:'dayViewHour':'ja'}}-{{event.end | calendarDate:'dayViewHour':'ja'}}</span>
         <span *ngIf="event.reserve != null">{{event.reserve.name}}</span>
-        <i class="fa fa-check-circle-o"
+        <i class="fa fa-circle-o"
            *ngIf="event.reserve==null && !event.activated"
            (click)="toggleTimeSlot.emit({event: event}); $event.stopPropagation()"></i>
-        <i class="fa fa-ban"
+        <i class="fa fa-check-circle-o"
            *ngIf="event.reserve==null && event.activated"
            (click)="toggleTimeSlot.emit({event: event}); $event.stopPropagation()"></i>
         <!--<i class="fa fa-close"-->

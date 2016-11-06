@@ -5,7 +5,7 @@
   }
 
   .cal-cell-row:hover {
-    background-color: #fafafa;
+    //background-color: #fafafa;
   }
 
   .cal-header .cal-cell {
@@ -18,7 +18,7 @@
 
   .cal-cell-row .cal-cell:hover,
   .cal-cell.cal-has-events.cal-open {
-    background-color: #ededed;
+    background-color: #fafafa;
   }
 
   .cal-days {
@@ -107,7 +107,7 @@
     height: auto;
     margin: 0 0 1px;
     padding: 3px;
-    background-color: #e7e7e7;
+    background-color: #f3f3f3;
 
     i {
       display: inline-block;
@@ -117,15 +117,20 @@
     }
 
     &.activated {
-      background-color: #d7d7d7 !important;
+      background-color: #f0f0f0;
+    }
+
+    &.deactivated {
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.2);
     }
 
     &.reserved {
-      background-color: #f9cd0b !important;
+      background-color: #f9cd0b;
     }
 
     &.not-confirmed {
-      background-color: #b1e800 !important;
+      background-color: #b0e8e2;
     }
   }
 
@@ -144,7 +149,7 @@
   }
 
   .cal-day-cell.cal-today {
-    background-color: #e8fde7;
+    //background-color: #e8fde7;
   }
 
   .cal-day-cell.cal-today .cal-day-number {
